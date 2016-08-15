@@ -1,7 +1,5 @@
 from django.contrib import admin
+from django.db.models import get_models, get_app
 
-from .models import Student, SchoolType, HighSchool
-
-admin.site.register(Student)
-admin.site.register(HighSchool)
-admin.site.register(SchoolType)
+for model in get_models(get_app('baseApp')):
+    admin.site.register(model)
