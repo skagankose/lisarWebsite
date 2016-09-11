@@ -1,5 +1,18 @@
 from django.contrib import admin
-from django.db.models import get_models, get_app
+from .models import *
 
-for model in get_models(get_app('baseApp')):
-    admin.site.register(model)
+admin.site.register(SchoolType)
+admin.site.register(HighSchool)
+admin.site.register(Teacher)
+admin.site.register(Course)
+admin.site.register(CourseDate)
+admin.site.register(Classroom)
+admin.site.register(BookPayment)
+admin.site.register(LisarSemester)
+admin.site.register(Student)
+admin.site.register(StudentPayment)
+admin.site.register(Attendance)
+admin.site.register(CourseGrade)
+admin.site.register(Income)
+admin.site.register(Outcome)
+admin.site.register(Budget)
