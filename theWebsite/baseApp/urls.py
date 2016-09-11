@@ -5,5 +5,8 @@ urlpatterns = [
 
     # Homepage
     url(r'^$', views.home, name='home'),
+    url(r'^ogrencikaydi/$', views.ogrencikaydi, name='ogrencikaydi'),
+    url(r'^ogretmenkaydi/$', views.ogretmenkaydi, name='ogretmenkaydi'),
+    url(r'^derskaydi/$', views.derskaydi, name='derskaydi'),
 
 ]
