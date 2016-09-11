@@ -46,12 +46,11 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
-
 class CourseDate(models.Model):
     course = models.ForeignKey(Course, blank=True, null=True)
-    date = models.DateField(default=timezone.now())
-    start = models.TimeField(default=timezone.now())
-    end = models.TimeField(default=timezone.now())
+    date = models.DateField(default=timezone.now)
+    start = models.TimeField(default=timezone.now)
+    end = models.TimeField(default=timezone.now)
 
     def __str__(self):
         return self.course.name + " " + str(self.date)
@@ -60,8 +59,7 @@ class CourseDate(models.Model):
 class Classroom(models.Model):
     code = models.CharField(max_length=300, blank=True, null=True)
     location = models.CharField(max_length=300, blank=True, null=True)
-    courses = models.ManyToManyField(Course, blank=True, null=True,
-        related_name="classroom")
+    courses = models.ManyToManyField(Course, blank=True, related_name="classroom")
 
     def __str__(self):
         return self.code
@@ -124,13 +122,13 @@ class Student(models.Model):
     classroom = models.ForeignKey(Classroom,
         related_name="students", blank=True, null=True)
     bookPayment = models.ManyToManyField(BookPayment,
-        related_name="students", blank=True, null=True) # soru: hem dönemden hem de ögrenciden payment gidiyor
+        related_name="students", blank=True) # soru: hem dönemden hem de ögrenciden payment gidiyor
 
     def __str__(self):
         return self.firstName + " " + self.lastName
 
 
-class studentPayment(models.Model):
+class StudentPayment(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True)
     payment = models.ForeignKey(BookPayment, blank=True, null=True)
     isPaid = models.BooleanField(default=False)

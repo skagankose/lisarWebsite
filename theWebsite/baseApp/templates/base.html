@@ -65,14 +65,11 @@
                           <a href="#" title="Available Courses">Courses</a>
                       </li>
                       <li>
-                          <a href="#" class="Pages Collection" title="More Templates">Inner Pages</a>
+                          <a href="#" class="" title="Öğretmen/Öğrenci/Ders Kaydı">Yeni Kayıt</a>
                           <ul class="sub-menu">
-                              <li><a href="#">News Single Page</a></li>
-                              <li><a href="#">Events Single Page</a></li>
-                              <li><a href="#">Course Single Page</a></li>
-                              <li><a href="#">Gallery Single Page</a></li>
-                              <li><a href="#">News Stacked Page</a></li>
-                              <li><a href="#">Search Results Page</a></li>
+                              <li><a href="/ogretmenkaydi/">Öğretmen Kaydı</a></li>
+                              <li><a href="/ogrencikaydi/">Öğrenci Kaydı</a></li>
+                              <li><a href="/derskaydi/">Ders Kaydı</a></li>
                               <li>
                                   <a href="#">Menu Test</a>
                                   <ul class="sub-menu">
@@ -117,7 +114,7 @@
   <div id="k-body"><!-- content wrapper -->
 
       <div class="container"><!-- container -->
-
+      {% block content %}
           <div class="row"><!-- row -->
 
               <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
@@ -468,7 +465,7 @@
               </div><!-- misc wrapper end -->
 
           </div><!-- row end -->
-
+      {% endblock %}
       </div><!-- container end -->
 
   </div><!-- content wrapper end -->
