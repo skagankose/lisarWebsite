@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(SchoolType)
+#admin.site.register(SchoolType)
 admin.site.register(HighSchool)
 admin.site.register(Teacher)
 admin.site.register(Course)

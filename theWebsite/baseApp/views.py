@@ -39,7 +39,7 @@ def ogretmenkaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Öğretmen'})
 
 
-# Ogrenci Kaydi
+# Ders Kaydi
 def derskaydi(request):
     if request.method == 'POST':
         form = DersKayit(request.POST)
@@ -52,3 +52,33 @@ def derskaydi(request):
         form = DersKayit()
 
     return render(request, 'kayit.html', {'form': form, 'title': 'Ders'})
+
+
+# Dönem Kaydi
+def donemkaydi(request):
+    if request.method == 'POST':
+        form = DonemKayit(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = DonemKayit()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Dönem'})
+
+
+# Sınıf Kaydi
+def sinifkaydi(request):
+    if request.method == 'POST':
+        form = SinifKayit(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = SinifKayit()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Sınıf'})

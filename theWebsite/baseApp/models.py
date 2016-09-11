@@ -5,20 +5,12 @@ from django.db import models
 from django.utils import timezone
 
 
-class SchoolType(models.Model):
-    title = models.CharField(max_length=500)
-
-    def __str__(self):
-        return self.title
-
-
 class HighSchool(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
-    schoolType = models.ForeignKey(SchoolType,\
-        related_name="highSchools", blank=True, null=True)
+    schoolType = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        return self.name + " " + self.schoolType.title
+        return self.name + " " + self.schoolType
 
 
 class Teacher(models.Model):
@@ -88,12 +80,6 @@ class LisarSemester(models.Model):
         return self.semester
 
 
-class SchoolSemester(models.Model):  # soru: gerek varmı ayrı bi class a
-    semester = models.CharField(max_length=300, blank=True, null=True)
-
-    def __str__(self):
-        return self.semester
-
 
 class Student(models.Model):
     # Personal info
@@ -113,8 +99,7 @@ class Student(models.Model):
     # School info
     highSchool = models.ForeignKey(HighSchool,
         related_name="students", blank=True, null=True)
-    schoolSemester = models.ForeignKey(SchoolSemester,
-        related_name="students", blank=True, null=True)
+    schoolSemester = models.IntegerField(blank=True, null=True)
     teogScore = models.FloatField(blank=True, null=True)
 
     # Lisar info
@@ -165,6 +150,7 @@ class CourseGrade(models.Model):
 class Income(models.Model):
     date = models.DateField(max_length=8, default=timezone.now)
     amount = models.FloatField()
+    note = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.amount + " TL"
@@ -173,6 +159,7 @@ class Income(models.Model):
 class Outcome(models.Model):
     date = models.DateField(max_length=8, default=timezone.now)
     amount = models.FloatField()
+    note = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.amount + " TL"

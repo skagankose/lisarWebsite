@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Student, Teacher, Course
+from .models import *
 
 # Create the form class.
 class OgrenciKayit(ModelForm):
@@ -20,3 +20,13 @@ class DersKayit(ModelForm):
   class Meta:
     model = Course
     fields = ['name', 'teacher', 'classroom', 'start', 'end']
+
+class DonemKayit(ModelForm):
+  class Meta:
+    model = LisarSemester
+    fields = ['semester', 'start', 'end']
+
+class SinifKayit(ModelForm):
+  class Meta:
+    model = Classroom
+    fields = ['code', 'location']
