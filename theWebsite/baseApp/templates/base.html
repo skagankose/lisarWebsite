@@ -43,7 +43,7 @@
               <div id="k-site-logo" class="pull-left"><!-- site logo -->
 
                   <h1 class="k-logo">
-                      <a href="#" title="Home Page">
+                      <a href="{% url "home"%}" title="Home Page">
                           <img src="{% static "img/site-logo.png" %}" alt="Site Logo" class="img-responsive" />
                       </a>
                   </h1>
@@ -56,51 +56,35 @@
 
                   <ul id="drop-down-left" class="k-dropdown-menu">
                       <li>
-                          <a href="#" title="Our School News">Lisar</a>
+                          <a href="#" title="Teachers">Öğretmenler</a>
                           <ul class="sub-menu">
-                              <li><a href="#">Öğretmenler</a></li>
-                              <li><a href="#">Sınıflar</a></li>
-                              <li><a href="#">Dersler</a></li>
-                              <li>
-                                <a href="#">Yeni Kayıt</a>
-                                <ul class="sub-menu">
-                                    <li><a href="/donemkaydi/">Lisar Dönemi</a></li>
-                                    <li><a href="/ogretmenkaydi/">Öğretmen</a></li>
-                                    <li><a href="/sinifkaydi/">Sınıf</a></li>
-                                    <li><a href="/derskaydi/">Ders</a></li>
-                                </ul>
-                              </li>
+                              <li><a href="{% url "ogretmenkaydi" %}"  style="text-transform:none;">Öğretmen Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Upcoming Events">Öğrenciler</a>
+                          <a href="{% url "students" %}" title="Students">Öğrenciler</a>
                           <ul class="sub-menu">
-                              <li><a href="/ogrencikaydi/">Yeni Kayıt</a></li>
+                              <li><a href="{% url "ogrencikaydi" %}" style="text-transform:none;">Öğrenci Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Available Courses">Yoklama</a>
+                          <a href="#" title="Courses">Dersler</a>
                           <ul class="sub-menu">
-                              <li><a href="#">Yoklama Al</a></li>
-                              <li><a href="#">Geçmiş Yoklamalar</a></li>
+                              <li><a href="{% url "derskaydi" %}" style="text-transform:none;">Ders Ekle</a></li>
+                              <li><a href="{% url "sinifkaydi" %}" style="text-transform:none;">Sınıf Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Available Courses">Ders Notu</a>
+                          <a href="#" title="Budget">Bütçe</a>
+                          <ul class="sub-menu">
+                              <li><a href="#" style="text-transform:none;">Gelir Ekle</a></li>
+                              <li><a href="#" style="text-transform:none;">Gider Ekle</a></li>
+                          </ul>
                       </li>
                       <li>
-                          <a href="#" title="Available Courses">Mali İşler</a>
+                          <a href="#" title="About Us">Lisar</a>
                           <ul class="sub-menu">
-                              <li><a href="#">Genel Bakış</a></li>
-                              <li><a href="#">Ödeme Oluştur</a></li>
-                              <li><a href="#">Öğrenci Ödemesi</a></li>
-                              <li>
-                                <a href="#">Yeni Kayıt</a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">Gelir Kaydı</a></li>
-                                    <li><a href="#">Gider Kaydı</a></li>
-                                </ul>
-                              </li>
+                              <li><a href="#" style="text-transform:none;">Dönem Ekle</a></li>
                           </ul>
                       </li>
                   </ul>
@@ -113,10 +97,12 @@
 
   </div><!-- container + head wrapper end -->
 
+{% block body %}
+
   <div id="k-body"><!-- content wrapper -->
 
       <div class="container"><!-- container -->
-      {% block content %}
+
           <div class="row"><!-- row -->
 
               <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
@@ -141,6 +127,8 @@
               </div><!-- breadcrumbs end -->
 
           </div><!-- row end -->
+
+
 
           <div class="row no-gutter fullwidth"><!-- row -->
 
@@ -467,10 +455,12 @@
               </div><!-- misc wrapper end -->
 
           </div><!-- row end -->
-      {% endblock %}
+
       </div><!-- container end -->
 
   </div><!-- content wrapper end -->
+
+{% endblock %}
 
   <div id="k-footer"><!-- footer -->
 

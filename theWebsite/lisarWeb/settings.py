@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'baseApp',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,4 +103,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'precious/static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'baseApp/static/')

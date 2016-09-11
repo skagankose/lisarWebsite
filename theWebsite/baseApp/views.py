@@ -1,13 +1,27 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render,  get_object_or_404
+from .models import *
 from .forms import *
-
-
 
 # Homepage
 def home(request):
+
     context = {}
     return render(request, 'home.html', context)
+
+def studentDetails(request, pk):
+
+    student = get_object_or_404(Student, pk=pk)
+    context = {'student': student}
+
+    return render(request,'studentDetails.html', context)
+
+def students(request):
+
+    students = Student.objects.all()
+    context = {'students': students}
+
+    return render(request,'students.html', context)
+
 
 # Ogrenci Kaydi
 def ogrencikaydi(request):

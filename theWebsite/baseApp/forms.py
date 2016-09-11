@@ -6,9 +6,9 @@ class OgrenciKayit(ModelForm):
   class Meta:
     model = Student
     fields = ['firstName', 'lastName', 'dateOfBirth', 'phoneNumber',
-    'mailAddress', 'adress', 'place', 'reference', 'reason',
-    'highSchool', 'schoolSemester', 'teogScore',
-    'lisarSemester', 'classroom' ]
+    'mailAddress', 'adress', 'residence', 'reference', 'admissionCause',
+    'highSchool', 'schoolLevel', 'TEOGScore',
+    'lisarLevel','profilePhoto']
 
 class OgretmenKayit(ModelForm):
   class Meta:

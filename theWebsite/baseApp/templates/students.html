@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block body %}
+
 
 <div id="k-body"><!-- content wrapper -->
 
@@ -26,22 +26,31 @@
 
                 <ol class="breadcrumb">
                     <li><a href="{% url "home"%}">Anasayfa</a></li>
-                    <li class="active">{{ title }} Kayıt</li>
+                    <li class="active">Bütün Öğrenciler</li>
                 </ol>
 
             </div><!-- breadcrumbs end -->
 
         </div><!-- row end -->
 
-        <form action="#" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <br>
-            <input type="submit" value="Kaydet" />
-        </form>
+        {% for student in students %}
+
+        <div class="row">
+            <div class="col-xs-1">
+                <p> {{ student.pk }}. </p>
+            </div>
+            <div class="col-xs-11">
+                <p> <a href="{% url "studentDetails" pk=student.pk %}">
+                    {{ student.firstName }} {{ student.lastName }} </a>
+                </p>
+            </div>
+        </div>
+
+
+        {% endfor %}
 
     </div>
-</div>
 
+</div>
 
 {% endblock %}
