@@ -8,5 +8,7 @@ urlpatterns = [
     url(r'^ogrencikaydi/$', views.ogrencikaydi, name='ogrencikaydi'),
     url(r'^ogretmenkaydi/$', views.ogretmenkaydi, name='ogretmenkaydi'),
     url(r'^derskaydi/$', views.derskaydi, name='derskaydi'),
+    url(r'^donemkaydi/$', views.donemkaydi, name='donemkaydi'),
+    url(r'^sinifkaydi/$', views.sinifkaydi, name='sinifkaydi'),
 
 ]
