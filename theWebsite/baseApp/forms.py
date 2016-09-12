@@ -13,8 +13,8 @@ class OgrenciKayit(ModelForm):
 class OgretmenKayit(ModelForm):
   class Meta:
     model = Teacher
-    fields = ['firstName', 'lastName', 'phoneNumber', 'university', 'department', 'degree',
-    'mailAddress', 'ibanNo']
+    fields = ['firstName', 'lastName', 'phoneNumber', 'school', 'department',
+    'status', 'mailAddress', 'IBAN', 'profilePhoto']
 
 class DersKayit(ModelForm):
   class Meta:

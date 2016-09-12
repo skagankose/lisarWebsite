@@ -26,7 +26,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="{% url "home" %}">Anasayfa</a></li>
-                    <li class="active">Öğrenciler</li>
+                    <li class="active">Öğretmenler</li>
                 </ol>
 
             </div><!-- breadcrumbs end -->
@@ -43,7 +43,7 @@
 
                         <div class="col-lg-12 col-md-12">
 
-                            <h1 class="page-title">Öğrenciler</h1><!-- category title -->
+                            <h1 class="page-title">Öğretmenler</h1><!-- category title -->
 
                         </div>
 
@@ -63,14 +63,14 @@
                                 </thead>
                                 <tbody>
 
-                                {% for student in students %}
+                                {% for teacher in teachers %}
 
                                     <tr>
-                                        <td>{{ student.pk }}</td>
-                                        <td><a href="{% url "studentDetails" pk=student.pk %}">
-                                            {{ student.firstName }} {{ student.lastName}}</a>
+                                        <td>{{ teacher.pk }}</td>
+                                        <td><a href="{% url "teacherDetails" pk=teacher.pk %}">
+                                            {{ teacher.firstName }} {{ teacher.lastName}}</a>
                                         </td>
-                                        <td>{{ student.mailAddress }}</td>
+                                        <td>{{ teacher.mailAddress }}</td>
                                     </tr>
                                 {% endfor %}
 

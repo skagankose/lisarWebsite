@@ -23,14 +23,30 @@ def students(request):
 
     return render(request,'students.html', context)
 
+def teachers(request):
+
+    teachers = Teacher.objects.all()
+    context = {'teachers': teachers}
+
+    return render(request,'teachers.html', context)
+
+def teacherDetails(request, pk):
+
+    teacher = get_object_or_404(Teacher, pk=pk)
+    context = {'teacher': teacher}
+
+    return render(request,'teacherDetails.html', context)
+
 
 # Ogrenci Kaydi
 def ogrencikaydi(request):
     if request.method == 'POST':
-        form = OgrenciKayit(request.POST)
+        form = OgrenciKayit(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
+            instance.profilePhoto = request.FILES.get('profilePhoto', None)
             instance.save()
+            registered = True
             return HttpResponseRedirect('/')
 
     else:
@@ -42,10 +58,12 @@ def ogrencikaydi(request):
 # Ogretmen Kaydi
 def ogretmenkaydi(request):
     if request.method == 'POST':
-        form = OgretmenKayit(request.POST)
+        form = OgretmenKayit(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
+            instance.profilePhoto = request.FILES.get('profilePhoto', None)
             instance.save()
+            registered = True
             return HttpResponseRedirect('/')
 
     else:

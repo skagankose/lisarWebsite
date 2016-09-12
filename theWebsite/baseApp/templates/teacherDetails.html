@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block body %}
 
@@ -25,23 +24,34 @@
             <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 
                 <ol class="breadcrumb">
-                    <li><a href="{% url "home"%}">Anasayfa</a></li>
-                    <li class="active">{{ title }} Kayıt</li>
+                    <li><a href="{% url "teachers" %}">Bütün Öğretmenler</a></li>
+                    <li class="active">Öğretmen Bilgileri</li>
                 </ol>
 
             </div><!-- breadcrumbs end -->
 
         </div><!-- row end -->
 
-        <form action="#" method="post" style="text-transform:none;" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <br>
-            <input type="submit" value="Kaydet" />
-        </form>
+        <div class="row">
+        <div class="col-xs-4">
+            {% if teacher.profilePhoto %}
+            <p> <img src='/static/{{teacher.profilePhoto}}' class='img-responsive'/> </p>
+            {% else %}
+            <p> <img src='/static/img/profilePhoto.png' class='img-responsive'/> </p>
+            {% endif %}
+        </div>
+        <div class="col-xs-8">
+            <p> <b>İsim</b> {{ teacher.firstName }} </p>
+            <p> <b>Soyisim</b> {{ teacher.lastName }} </p>
+            <p> <b>Telefon Numarası</b> {{ teacher.phoneNumber }} </p>
+            <p> <b>Email Adresi</b> {{ teacher.mailAddress }} </p>
+            <p> <b>Okul</b> {{ teacher.school }} </p>
+            <p> <b>Bölüm</b> {{ teacher.department }} </p>
+            <p> <b>Statü</b> {{ teacher.status }} </p>
+            <p> <b>IBAN</b> {{ teacher.IBAN }} </p>
+        </div>
+        </div>
 
     </div>
-</div>
-
 
 {% endblock %}

@@ -31,9 +31,9 @@
           <nav class="k-functional-navig"><!-- functional navig -->
 
               <ul class="list-inline pull-right">
-                  <li><a href="#">Jobs</a></li>
-                  <li><a href="#">Calendar</a></li>
-                  <li><a href="#">Directions</a></li>
+                  <li><a href="#" style="text-transform:none;">Başvuru</a></li>
+                  <li><a href="#" style="text-transform:none;">Site Haritası</a></li>
+                  <li><a href="#" style="text-transform:none;">Dil Değiştir</a></li>
               </ul>
 
           </nav><!-- functional navig end -->
@@ -56,33 +56,33 @@
 
                   <ul id="drop-down-left" class="k-dropdown-menu">
                       <li>
-                          <a href="#" title="Teachers">Öğretmenler</a>
+                          <a href="{% url "teachers" %}" title="Teachers" style="text-transform:none;">Öğretmenler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogretmenkaydi" %}"  style="text-transform:none;">Öğretmen Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="{% url "students" %}" title="Students">Öğrenciler</a>
+                          <a href="{% url "students" %}" title="Students" style="text-transform:none;">Öğrenciler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogrencikaydi" %}" style="text-transform:none;">Öğrenci Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Courses">Dersler</a>
+                          <a href="#" title="Courses" style="text-transform:none;">Dersler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "derskaydi" %}" style="text-transform:none;">Ders Ekle</a></li>
                               <li><a href="{% url "sinifkaydi" %}" style="text-transform:none;">Sınıf Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Budget">Bütçe</a>
+                          <a href="#" title="Budget" style="text-transform:none;">Bütçe</a>
                           <ul class="sub-menu">
                               <li><a href="#" style="text-transform:none;">Gelir Ekle</a></li>
                               <li><a href="#" style="text-transform:none;">Gider Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="About Us">Lisar</a>
+                          <a href="#" title="About Us" style="text-transform:none;">Lisar</a>
                           <ul class="sub-menu">
                               <li><a href="#" style="text-transform:none;">Dönem Ekle</a></li>
                           </ul>

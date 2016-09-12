@@ -14,22 +14,13 @@ class HighSchool(models.Model):
     def __str__(self):
         return self.name + " " + self.schoolType + " Lisesi"
 
-
-class Teacher(models.Model):
-    firstName = models.CharField(max_length=300, blank=True, null=True)
-    lastName = models.CharField(max_length=300, blank=True, null=True)
-    phoneRegex = RegexValidator(regex=r'^\+?1?\d{12}$',\
-        message="Phone number must be entered in the format: '+999999999'. 12 digits allowed.")
-    phoneNumber = models.CharField(validators=[phoneRegex], blank=True, max_length=13)
-    mailAddress = models.EmailField(blank=True, null=True)
-    university = models.CharField(max_length=300, blank=True, null=True)
-    department = models.CharField(max_length=300, blank=True, null=True)
-    degree = models.CharField(max_length=30,choices = (('lisans', 'Lisans'), ('yüksek lisans', 'Yüksek Lisans'),
-        ('doktora', 'Doktora')), blank=True, null=True)
-    ibanNo = models.CharField(max_length=50, blank=True, null=True)
+class School(models.Model):
+    name = models.CharField(max_length=500, blank=True, null=True)
+    schoolType = models.CharField(max_length=50, choices=(('Lisesi', 'Lise'), ('Üniversitesi', 'Üniversite')),\
+        blank=True, null=True)
 
     def __str__(self):
-        return self.firstName + " " + self.lastName
+        return self.name + " " + self.schoolType
 
 class Classroom(models.Model):
     code = models.CharField(max_length=300, blank=True, null=True)
@@ -37,6 +28,38 @@ class Classroom(models.Model):
 
     def __str__(self):
         return self.code
+
+# START OF Teacher
+class Teacher(models.Model):
+    firstName = models.CharField(max_length=300, blank=True, null=True, verbose_name="İsim")
+    lastName = models.CharField(max_length=300, blank=True, null=True, verbose_name="Soyisim")
+    phoneRegex = RegexValidator(regex=r'^\+?1?\d{12}$',\
+        message="Phone number must be entered in the format: '+999999999'. 12 digits allowed.")
+    phoneNumber = models.CharField(validators=[phoneRegex], blank=True, max_length=13, verbose_name="Telefon")
+    mailAddress = models.EmailField(blank=True, null=True, verbose_name="Email Adresi")
+    school = models.ForeignKey(School, related_name="teachers", blank=True, null=True, verbose_name="Okul")
+    department = models.CharField(max_length=300, choices = (('bilgisayar mühendisliği', 'Bilgisayar Mühendisliği'),\
+                                                             ('kimya', 'Kimya')),\
+        blank=True, null=True, verbose_name="Bölüm")
+    status = models.CharField(max_length=30, choices = (('lisans', 'Lisans'), ('yüksek lisans', 'Yüksek Lisans'),
+        ('doktora', 'Doktora')), blank=True, null=True, verbose_name="Statü")
+
+    IBANRegex = RegexValidator(regex=r'^\w{2}\d{24}$',\
+        message="IBAN must be entered in the format: 'TR999999999999999999999999'. 24 digits allowed.")
+    IBAN = models.CharField(validators=[IBANRegex], max_length=26, blank=True, null=True, verbose_name="IBAN")
+    profilePhoto = models.ImageField(upload_to='img/', blank=True, verbose_name="Fotoğraf")
+
+    def save(self, *args, **kwargs):
+        try:
+            this = Teacher.objects.get(pk=self.pk)
+            if this.profilePhoto != self.profilePhoto and this.profilePhoto != 'img/profilePhoto.png':
+                this.profilePhoto.delete(save=False)
+        except: pass
+        super(Teacher, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.pk) + " " + self.firstName + " " + self.lastName
+# END OF Teacher
 
 class Course(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -124,7 +147,6 @@ class Student(models.Model):
         return str(self.pk) + " " + self.firstName + " " + self.lastName
 
 # END OF Student
-
 
 class StudentPayment(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True)
