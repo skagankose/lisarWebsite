@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 
 
@@ -33,6 +34,7 @@ class Classroom(models.Model):
 class Teacher(models.Model):
     firstName = models.CharField(max_length=300, blank=True, null=True, verbose_name="İsim")
     lastName = models.CharField(max_length=300, blank=True, null=True, verbose_name="Soyisim")
+    fullName =  models.CharField(max_length=300, blank=True, null=True)
     phoneRegex = RegexValidator(regex=r'^\+?1?\d{12}$',\
         message="Phone number must be entered in the format: '+999999999'. 12 digits allowed.")
     phoneNumber = models.CharField(validators=[phoneRegex], blank=True, max_length=13, verbose_name="Telefon")
@@ -55,6 +57,7 @@ class Teacher(models.Model):
             if this.profilePhoto != self.profilePhoto and this.profilePhoto != 'img/profilePhoto.png':
                 this.profilePhoto.delete(save=False)
         except: pass
+        self.fullName = self.firstName + " " + self.lastName
         super(Teacher, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -104,6 +107,7 @@ class Student(models.Model):
 
     firstName = models.CharField(max_length=300, verbose_name="İsim")
     lastName = models.CharField(max_length=300, verbose_name="Soyisim")
+    fullName =  models.CharField(max_length=300, blank=True, null=True)
     phoneRegex = RegexValidator(regex=r'^\+?1?\d{12}$',\
         message="Phone number must be entered in the format: '+999999999'. 12 digits allowed.")
     phoneNumber = models.CharField(validators=[phoneRegex], blank=True, max_length=13, verbose_name="Telefon")
@@ -133,6 +137,7 @@ class Student(models.Model):
             if this.profilePhoto != self.profilePhoto and this.profilePhoto != 'img/profilePhoto.png':
                 this.profilePhoto.delete(save=False)
         except: pass
+        self.fullName = self.firstName + " " + self.lastName
         super(Student, self).save(*args, **kwargs)
 
     def __str__(self):

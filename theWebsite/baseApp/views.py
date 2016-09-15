@@ -20,38 +20,84 @@ def studentDetails(request, pk):
 
 def students(request):
 
-    studentList = Student.objects.all()
-    paginator = Paginator(studentList, 15)
-    page = request.GET.get('page')
+    if request.method == 'POST':
+        fullName = request.POST['fullName']
+        mailAdress = request.POST['mailAdress']
 
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        students = paginator.page(1)
-    except EmptyPage:
-        students = paginator.page(paginator.num_pages)
+        studentList = Student.objects.filter(fullName__contains=fullName,\
+                                             mailAddress__contains=mailAdress)
+        paginator = Paginator(studentList, 15)
+        page = request.GET.get('page')
 
-    context = {'students': students}
+        try:
+            students = paginator.page(page)
+        except PageNotAnInteger:
+            students = paginator.page(1)
+        except EmptyPage:
+            students = paginator.page(paginator.num_pages)
 
-    return render(request,'students.html', context)
+
+        context = {'students': students}
+
+        return render(request,'students.html', context)
+
+    else:
+
+        studentList = Student.objects.all()
+        paginator = Paginator(studentList, 15)
+        page = request.GET.get('page')
+
+        try:
+            students = paginator.page(page)
+        except PageNotAnInteger:
+            students = paginator.page(1)
+        except EmptyPage:
+            students = paginator.page(paginator.num_pages)
+
+        context = {'students': students}
+
+        return render(request,'students.html', context)
 
 def teachers(request):
 
-    teacherList = Teacher.objects.all()
-    paginator = Paginator(teacherList, 15)
-    page = request.GET.get('page')
+        if request.method == 'POST':
+            fullName = request.POST['fullName']
+            mailAdress = request.POST['mailAdress']
 
-    try:
-        teachers = paginator.page(page)
-    except PageNotAnInteger:
-        teachers = paginator.page(1)
-    except EmptyPage:
-        teachers = paginator.page(paginator.num_pages)
+            teacherList = Teacher.objects.filter(fullName__contains=fullName,\
+                                                 mailAddress__contains=mailAdress)
+            paginator = Paginator(teacherList, 15)
+            page = request.GET.get('page')
+
+            try:
+                teachers = paginator.page(page)
+            except PageNotAnInteger:
+                teachers = paginator.page(1)
+            except EmptyPage:
+                teachers = paginator.page(paginator.num_pages)
 
 
-    context = {'teachers': teachers}
+            context = {'teachers': teachers}
 
-    return render(request,'teachers.html', context)
+            return render(request,'teachers.html', context)
+
+        else:
+
+            teacherList = Teacher.objects.all()
+            paginator = Paginator(teacherList, 15)
+            page = request.GET.get('page')
+
+            try:
+                teachers = paginator.page(page)
+            except PageNotAnInteger:
+                teachers = paginator.page(1)
+            except EmptyPage:
+                teachers = paginator.page(paginator.num_pages)
+
+
+            context = {'teachers': teachers}
+
+            return render(request,'teachers.html', context)
 def teacherDetails(request, pk):
 
     teacher = get_object_or_404(Teacher, pk=pk)
@@ -61,21 +107,48 @@ def teacherDetails(request, pk):
 
 def courses(request):
 
-    courseList = Course.objects.all()
-    paginator = Paginator(courseList, 15)
-    page = request.GET.get('page')
+    if request.method == 'POST':
 
-    try:
-        courses = paginator.page(page)
-    except PageNotAnInteger:
-        courses = paginator.page(1)
-    except EmptyPage:
-        courses = paginator.page(paginator.num_pages)
+        code = request.POST['code']
+        name = request.POST['name']
+        teacher = request.POST['teacher']
 
 
-    context = {'courses': courses}
+        courseList = Course.objects.filter(name__contains=name,\
+                                           teacher__slugName__contains=teacher,\
+                                           code__contains=code)
+        paginator = Paginator(courseList, 15)
+        page = request.GET.get('page')
 
-    return render(request,'courses.html', context)
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            courses = paginator.page(1)
+        except EmptyPage:
+            courses = paginator.page(paginator.num_pages)
+
+
+        context = {'courses': courses}
+
+        return render(request,'courses.html', context)
+
+    else:
+
+        courseList = Course.objects.all()
+        paginator = Paginator(courseList, 15)
+        page = request.GET.get('page')
+
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            courses = paginator.page(1)
+        except EmptyPage:
+            courses = paginator.page(paginator.num_pages)
+
+
+        context = {'courses': courses}
+
+        return render(request,'courses.html', context)
 def courseDetails(request, pk):
 
     course = get_object_or_404(Course, pk=pk)
@@ -85,21 +158,44 @@ def courseDetails(request, pk):
 
 def attendances(request):
 
-    attendanceList = CreateAttendance.objects.all()
-    paginator = Paginator(attendanceList, 15)
-    page = request.GET.get('page')
+    if request.method == 'POST':
+        date = request.POST['date']
+        course = request.POST['course']
 
-    try:
-        attendances = paginator.page(page)
-    except PageNotAnInteger:
-        attendances = paginator.page(1)
-    except EmptyPage:
-        attendances = paginator.page(paginator.num_pages)
+        attendanceList = CreateAttendance.objects.filter(date__contains=date, course__name__contains=course)
+        paginator = Paginator(attendanceList, 15)
+        page = request.GET.get('page')
+
+        try:
+            attendances = paginator.page(page)
+        except PageNotAnInteger:
+            attendances = paginator.page(1)
+        except EmptyPage:
+            attendances = paginator.page(paginator.num_pages)
 
 
-    context = {'attendances': attendances}
+        context = {'attendances': attendances}
 
-    return render(request,'attendances.html', context)
+        return render(request,'attendances.html', context)
+
+
+    else:
+
+        attendanceList = CreateAttendance.objects.all()
+        paginator = Paginator(attendanceList, 15)
+        page = request.GET.get('page')
+
+        try:
+            attendances = paginator.page(page)
+        except PageNotAnInteger:
+            attendances = paginator.page(1)
+        except EmptyPage:
+            attendances = paginator.page(paginator.num_pages)
+
+
+        context = {'attendances': attendances}
+
+        return render(request,'attendances.html', context)
 def attendanceDetails(request, pk):
 
     createAttendance = get_object_or_404(CreateAttendance, pk=pk)

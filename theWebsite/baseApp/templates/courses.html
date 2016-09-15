@@ -26,7 +26,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="{% url "home" %}">Anasayfa</a></li>
-                    <li class="active">Dersler</li>
+                    <li class="active"><a href="{% url "courses" %}">Dersler</a></li>
                 </ol>
 
             </div><!-- breadcrumbs end -->
@@ -53,6 +53,20 @@
 
                         <div class="col-lg-12 col-md-12">
 
+                            <br>
+                            <p class="subheading">
+                                <form action="{% url "courses" %}" method="post" style="text-transform:none;" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type='text' id='csrftoken' name='csrftoken' value="{{ csrf_token }}" hidden='true' />
+                                    <i class="fa fa-search fa-lg"></i>
+                                    <input style="color:black;" type='text' name='code' placeholder="Kod"/>
+                                    <input style="color:black;" type='text' name='name' placeholder="Ders"/>
+                                    <input style="color:black;" type='text' name='teacher' placeholder="Öğretmen"/>
+                                    <input type="submit" value="Ara"/>
+                                </form>
+                            </p>
+
+
                             <table class="table table-striped table-courses">
                                 <thead>
                                     <tr>
@@ -69,9 +83,9 @@
                                     <tr>
                                         <td>{{ course.code }}</td>
                                         <td><a href="{% url "courseDetails" pk=course.pk %}">
-                                            {{ course.name }}</a>
-                                        </td>
-                                        <td>{{ course.teacher }}</td>
+                                            {{ course.name }}</a></td>
+                                        <td><a href="{% url "teacherDetails" pk=course.teacher.pk %}">
+                                            {{ course.teacher }}</a></td>
                                         <td>{{ course.classroom }}</td>
                                     </tr>
                                 {% endfor %}
