@@ -43,6 +43,10 @@
                     {% else %}
                     <p> <img src='/static/img/profilePhoto.png' class='img-responsive'/> </p>
                     {% endif %}
+                    <p> <i class="fa fa-external-link" aria-hidden="true"></i>
+                        <a href="{% url "studentAttendance" pk=student.pk %}">Yoklama Bigileri</a>
+                    </p>
+
                 </div>
                 <div class="col-xs-1"></div>
                 <div class="col-xs-7">
@@ -59,7 +63,6 @@
                     <p> <b>Lisar Kademesi</b> {{ student.lisarLevel }} </p>
                     <p> <b>Başvuru Nedeni</b> {{ student.admissionCause }} </p>
                     <p> <b>Referanslar</b> {{ student.reference }} </p>
-                    <p> <b><a href="{% url "studentAttendance" pk=student.pk %}">Yoklama Bigileri</a></b></p>
 
                 </div>
                 </div>
