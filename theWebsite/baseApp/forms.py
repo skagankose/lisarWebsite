@@ -19,7 +19,7 @@ class OgretmenKayit(ModelForm):
 class DersKayit(ModelForm):
   class Meta:
     model = Course
-    fields = ['name', 'teacher', 'classroom', 'start', 'end']
+    fields = ['name', 'code', 'teacher', 'classroom', 'lisarLevel', 'start', 'end', 'students']
 
 class DonemKayit(ModelForm):
   class Meta:
@@ -30,3 +30,8 @@ class SinifKayit(ModelForm):
   class Meta:
     model = Classroom
     fields = ['code', 'location']
+
+class CreateAttendanceForm(ModelForm):
+  class Meta:
+    model = CreateAttendance
+    fields = ['date', 'course']

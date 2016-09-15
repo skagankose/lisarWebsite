@@ -16,6 +16,11 @@
 <link href="{% static "js/fancybox/jquery.fancybox.css" %}" rel="stylesheet" type="text/css"><!-- Fancybox -->
 <link href="{% static "js/audioplayer/audioplayer.css" %}" rel="stylesheet" type="text/css"><!-- Audioplayer -->
 <link href="{% static "style.css" %}" rel="stylesheet"  type="text/css"><!-- theme styles -->
+<!-- Custom CSS -->
+<style>
+    .transform { text-transform: none !important;}
+    {% block stlye %} {% endblock %}
+</style>
 
 </head>
 <body role="document">
@@ -31,9 +36,9 @@
           <nav class="k-functional-navig"><!-- functional navig -->
 
               <ul class="list-inline pull-right">
-                  <li><a href="#" style="text-transform:none;">Başvuru</a></li>
-                  <li><a href="#" style="text-transform:none;">Site Haritası</a></li>
-                  <li><a href="#" style="text-transform:none;">Dil Değiştir</a></li>
+                  <li><a href="#" class="transform">Başvuru</a></li>
+                  <li><a href="#" class="transform">Site Haritası</a></li>
+                  <li><a href="#" class="transform">Dil Değiştir</a></li>
               </ul>
 
           </nav><!-- functional navig end -->
@@ -56,35 +61,41 @@
 
                   <ul id="drop-down-left" class="k-dropdown-menu">
                       <li>
-                          <a href="{% url "teachers" %}" title="Teachers" style="text-transform:none;">Öğretmenler</a>
+                          <a href="{% url "teachers" %}" title="Teachers" class="transform">Öğretmenler</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url "ogretmenkaydi" %}"  style="text-transform:none;">Öğretmen Ekle</a></li>
+                              <li><a href="{% url "ogretmenkaydi" %}"  class="transform">Öğretmen Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="{% url "students" %}" title="Students" style="text-transform:none;">Öğrenciler</a>
+                          <a href="{% url "students" %}" title="Students" class="transform">Öğrenciler</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url "ogrencikaydi" %}" style="text-transform:none;">Öğrenci Ekle</a></li>
+                              <li><a href="{% url "ogrencikaydi" %}" class="transform">Öğrenci Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Courses" style="text-transform:none;">Dersler</a>
+                          <a href="{% url "courses" %}" title="Courses" class="transform">Dersler</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url "derskaydi" %}" style="text-transform:none;">Ders Ekle</a></li>
-                              <li><a href="{% url "sinifkaydi" %}" style="text-transform:none;">Sınıf Ekle</a></li>
+                              <li><a href="{% url "derskaydi" %}" class="transform">Ders Ekle</a></li>
+                              <li><a href="{% url "sinifkaydi" %}" class="transform">Sınıf Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="Budget" style="text-transform:none;">Bütçe</a>
+                          <a href="#" title="Budget" class="transform">Bütçe</a>
                           <ul class="sub-menu">
-                              <li><a href="#" style="text-transform:none;">Gelir Ekle</a></li>
-                              <li><a href="#" style="text-transform:none;">Gider Ekle</a></li>
+                              <li><a href="#" class="transform">Gelir Ekle</a></li>
+                              <li><a href="#" class="transform">Gider Ekle</a></li>
                           </ul>
                       </li>
                       <li>
-                          <a href="#" title="About Us" style="text-transform:none;">Lisar</a>
+                          <a href="#" title="About Us" class="transform">Lisar</a>
                           <ul class="sub-menu">
-                              <li><a href="#" style="text-transform:none;">Dönem Ekle</a></li>
+                              <li><a href="#" class="transform">Dönem Ekle</a></li>
+                          </ul>
+                      </li>
+                      <li>
+                          <a href="{% url "attendances" %}" title="Attendance" class="transform">Yoklamalar</a>
+                          <ul class="sub-menu">
+                              <li><a href="{% url "createAttendance" %}" class="transform">Yoklama Ekle</a></li>
                           </ul>
                       </li>
                   </ul>
@@ -624,6 +635,13 @@
 
   <!-- Theme -->
   <script src="{% static "js/theme.js" %}"></script>
+
+  <script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+    window.document.location = $(this).data("href");
+  });});
+  </script>
 
   </body>
   </html>

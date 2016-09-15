@@ -61,16 +61,7 @@ class Teacher(models.Model):
         return str(self.pk) + " " + self.firstName + " " + self.lastName
 # END OF Teacher
 
-class Course(models.Model):
-    name = models.CharField(max_length=300, blank=True, null=True)
-    teacher = models.ForeignKey(Teacher, blank=True, null=True)
-    classroom = models.ForeignKey(Classroom, blank=True, null=True, related_name='course')
-    start = models.TimeField(default=timezone.now)
-    end = models.TimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.classroom.code + " " + self.name
-
+'''
 class CourseDate(models.Model):
     course = models.ForeignKey(Course, blank=True, null=True)
     date = models.DateField(default=timezone.now)
@@ -79,6 +70,7 @@ class CourseDate(models.Model):
 
     def __str__(self):
         return self.course.name + " " + str(self.date)
+'''
 
 class BookPayment(models.Model):
     Months = (('eylül','Eylül'), ('ekim','Ekim'), ('kasım','Kasım'),
@@ -144,9 +136,25 @@ class Student(models.Model):
         super(Student, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.pk) + " " + self.firstName + " " + self.lastName
-
+        return self.firstName + " " + self.lastName
 # END OF Student
+
+# START OF Course
+class Course(models.Model):
+    name = models.CharField(max_length=300, blank=True, null=True)
+    code = models.CharField(max_length=300, blank=True, null=True)
+    teacher = models.ForeignKey(Teacher, blank=True, null=True)
+    classroom = models.CharField(max_length=30, choices = (('A130', 'A130'), ('B240',\
+        'B240'), ('C350', 'C350')), blank=True, null=True)
+    lisarLevel = models.CharField(max_length=10, choices=(('1.', '1.'), ('2.', '2.')),\
+        blank=True, null=True)
+    start = models.TimeField(default=timezone.now)
+    end = models.TimeField(default=timezone.now)
+    students = models.ManyToManyField(Student, related_name='courses', blank=True)
+
+    def __str__(self):
+        return self.code + " " + self.name
+# END OF Course
 
 class StudentPayment(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True)
@@ -159,20 +167,26 @@ class StudentPayment(models.Model):
         else:
             return "%s %s - %s notPAID" %(self.student.firstName,self.student.lastName,self.payment.month)
 
-
-class Attendance(models.Model):
-    student = models.ForeignKey(Student, blank=True, null=True,
-        related_name="attendance")
-    courseDate = models.ForeignKey(CourseDate, blank=True, null=True,
-        related_name="attendance")
-    isHere = models.BooleanField()
+# START OF Attendance
+class CreateAttendance(models.Model):
+    date = models.DateField(max_length=8, default=timezone.now)
+    course = models.ForeignKey(Course, blank=True, null=True)
 
     def __str__(self):
-        if self.isHere == True:
-            return self.student.firstName + " HERE"
-        else:
-            return self.student.firstName + " ABSENT"
+        return str(self.pk) + " " + str(self.course)+ " " + str(self.date)
+# END OF Attendance
 
+# START OF individualAttendance
+class Attendance(models.Model):
+    student = models.ForeignKey(Student, blank=True, null=True, related_name="attendance")
+    course = models.ForeignKey(Course, blank=True, null=True, related_name="attendance")
+    date = models.DateField(max_length=8, default=timezone.now)
+    isHere = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.course) + " - " + str(self.date) + " - " + self.student.firstName
+
+# START OF individualAttendance
 
 class CourseGrade(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True)

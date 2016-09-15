@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block stlye %}
+{% endblock %}
+
 {% block body %}
 
 
@@ -56,9 +59,11 @@
                             <table class="table table-striped table-courses">
                                 <thead>
                                     <tr>
-                                        <th class="transform">Numara</th>
-                                        <th class="transform">İsim Soyisim</th>
+                                        <th class="transform">NO</th>
+                                        <th class="transform">Ad</th>
+                                        <th class="transform">Soyad</th>
                                         <th class="transform">Email Adresi</th>
+                                        <th class="transform">Var</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,9 +73,12 @@
                                     <tr>
                                         <td>{{ student.pk }}</td>
                                         <td><a href="{% url "studentDetails" pk=student.pk %}">
-                                            {{ student.firstName }} {{ student.lastName}}</a>
+                                            {{ student.firstName }}</a>
                                         </td>
+                                        <td>{{ student.lastName }}</td>
                                         <td>{{ student.mailAddress }}</td>
+                                        <td><input type="checkbox"  onclick='window.location.assign("{% url "markAttendance" capk=createAttendance.pk spk=student.pk %}")'/></td>
+                                        <!-- <td><a href="{% url "markAttendance" capk=createAttendance.pk spk=student.pk %}" class="list-group-item"><input type="checkbox" value=""></a></td> -->
                                     </tr>
                                 {% endfor %}
 
@@ -149,6 +157,14 @@
                         </div>
 
                     </div><!-- row end -->
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-lg-2" style="float: none; margin: 0 auto;">
+                            <a class="btn btn-primary transform" href="{% url "home" %}" >Tamam</a>
+                        </div>
+                    </div>
 
 
                 </div><!-- inner custom column end -->

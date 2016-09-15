@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block body %}
 
@@ -25,8 +24,8 @@
             <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 
                 <ol class="breadcrumb">
-                    <li><a href="{% url "home"%}">Anasayfa</a></li>
-                    <li class="active">{{ title }} Ekle</li>
+                    <li><a href="{% url "courses" %}">Bütün Dersler</a></li>
+                    <li class="active">Ders Bilgileri</li>
                 </ol>
 
             </div><!-- breadcrumbs end -->
@@ -37,12 +36,21 @@
 
             <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
 
-                <form action="#" method="post" style="text-transform:none;" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <br>
-                    <input type="submit" value="Kaydet" />
-                </form>
+                <div class="row">
+                <div class="col-xs-4">
+                    <p> <img src='/static/img/coursePhoto.png' class='img-responsive'/> </p>
+                </div>
+                <div class="col-xs-8">
+                    <p> <b>Kod</b> {{ course.code }} </p>
+                    <p> <b>Ad</b> {{ course.name }} </p>
+                    <p> <b>Öğretmen</b> {{ course.taacher }} </p>
+                    <p> <b>Sınıf</b> {{ course.classroom }} </p>
+                    <p> <b>Seviye</b> {{ course.lisarLevel }} </p>
+                    <p> <b>Başlangıç</b> {{ course.start }} </p>
+                    <p> <b>Bitiş</b> {{ course.end }} </p>
+                </div>
+                </div>
+
             </div><!-- doc body wrapper end -->
 
             <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
@@ -140,6 +148,6 @@
 
     </div>
 
-</div>
+    </div>
 
 {% endblock %}
