@@ -299,6 +299,47 @@ def attendanceTaken(request):
 
     return render(request,'404.html', context)
 
+
+# Student Edit Page
+def studentDetailsEdit(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.POST:
+        form = OgrenciKayit(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/studentDetails/%s'%pk)
+    else:
+        form = OgrenciKayit(instance=student)
+
+    return render(request, 'kayit.html',{ 'form':form, 'title':'Öğrenci'})
+
+# Teacher Edit Page
+def teacherDetailsEdit(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    if request.POST:
+        form = OgretmenKayit(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/teacherDetails/%s'%pk)
+    else:
+        form = OgretmenKayit(instance=teacher)
+
+    return render(request, 'kayit.html',{ 'form':form, 'title':'Öğretmen'})
+
+# Course Edit Page
+def courseDetailsEdit(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.POST:
+        form = DersKayit(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/courseDetails/%s'%pk)
+    else:
+        form = DersKayit(instance=course)
+
+    return render(request, 'kayit.html',{ 'form':form, 'title':'Ders'})
+
+
 # Ogrenci Kaydi
 def ogrencikaydi(request):
     if request.method == 'POST':
@@ -374,3 +415,45 @@ def sinifkaydi(request):
         form = SinifKayit()
 
     return render(request, 'kayit.html', {'form': form, 'title': 'Sınıf'})
+
+# Gelir Kaydi
+def gelirkaydi(request):
+    if request.method == 'POST':
+        form = GelirKayit(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = GelirKayit()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Gelir'})
+
+# Gider Kaydi
+def giderkaydi(request):
+    if request.method == 'POST':
+        form = GiderKayit(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = GiderKayit()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Gider'})
+
+# Kitap Odemesi Kaydi
+def kitapodemesikaydi(request):
+    if request.method == 'POST':
+        form = KitapOdemesiKayit(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = KitapOdemesiKayit()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Kitap Ödemesi'})

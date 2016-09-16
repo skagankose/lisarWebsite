@@ -81,14 +81,16 @@
                       <li>
                           <a href="#" title="Budget" class="transform">Bütçe</a>
                           <ul class="sub-menu">
-                              <li><a href="#" class="transform">Gelir Ekle</a></li>
-                              <li><a href="#" class="transform">Gider Ekle</a></li>
+                              <li><a href="{% url "gelirkaydi" %}" class="transform">Gelir Ekle</a></li>
+                              <li><a href="{% url "giderkaydi" %}" class="transform">Gider Ekle</a></li>
+                              <li><a href="{% url "kitapodemesikaydi" %}" style="text-transform:none;">Kitap Ödemesi Ekle</a></li>
+                              <li><a href="#" style="text-transform:none;">Öğrenci Ödemesi</a></li>
                           </ul>
                       </li>
                       <li>
                           <a href="#" title="About Us" class="transform">Lisar</a>
                           <ul class="sub-menu">
-                              <li><a href="#" class="transform">Dönem Ekle</a></li>
+                              <li><a href="{% url "donemkaydi" %}" class="transform">Dönem Ekle</a></li>
                           </ul>
                       </li>
                       <li>

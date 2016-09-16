@@ -17,12 +17,20 @@ urlpatterns = [
     url(r'^courses/$', views.courses, name='courses'),
     url(r'^courseDetails/(?P<pk>[0-9]+)/$', views.courseDetails, name='courseDetails'),
 
+    # Edit Pages
+    url(r'^studentDetails/(?P<pk>[0-9]+)/edit/$', views.studentDetailsEdit, name='studentDetailsEdit'),
+    url(r'^teacherDetails/(?P<pk>[0-9]+)/edit/$', views.teacherDetailsEdit, name='teacherDetailsEdit'),
+    url(r'^courseDetails/(?P<pk>[0-9]+)/edit/$', views.courseDetailsEdit, name='courseDetailsEdit'),
+
     # Registrations
     url(r'^ogrencikaydi/$', views.ogrencikaydi, name='ogrencikaydi'),
     url(r'^ogretmenkaydi/$', views.ogretmenkaydi, name='ogretmenkaydi'),
     url(r'^derskaydi/$', views.derskaydi, name='derskaydi'),
     url(r'^donemkaydi/$', views.donemkaydi, name='donemkaydi'),
     url(r'^sinifkaydi/$', views.sinifkaydi, name='sinifkaydi'),
+    url(r'^gelirkaydi/$', views.gelirkaydi, name='gelirkaydi'),
+    url(r'^giderkaydi/$', views.giderkaydi, name='giderkaydi'),
+    url(r'^kitapodemesikaydi/$', views.kitapodemesikaydi, name='kitapodemesikaydi'),
 
     # Attendace
     url(r'^createAttendance/$', views.createAttendance, name='createAttendance'),
