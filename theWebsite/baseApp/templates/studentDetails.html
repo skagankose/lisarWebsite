@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div id="k-body"><!-- content wrapper -->
+
+    <div class="container"><!-- container -->
+
+        <div class="row"><!-- row -->
+
+            <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
+
+                <form action="#" id="top-searchform" method="get" role="search">
+                    <div class="input-group">
+                        <input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
+                    </div>
+                </form>
+
+                <div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div><!-- toggle search button -->
+
+            </div><!-- top search end -->
+
+            <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
+
+                <ol class="breadcrumb">
+                    <li><a href="{% url "students" %}">Bütün Öğrenciler</a></li>
+                    <li class="active">Öğrenci Bilgileri</li>
+                </ol>
+
+            </div><!-- breadcrumbs end -->
+
+        </div><!-- row end -->
+
+        <div class="row no-gutter"><!-- row -->
+
+            <div ><!-- doc body wrapper -->
+
+                <div class="row">
+                <div class="col-xs-4">
+                    {% if student.profilePhoto %}
+                    <p> <img src='/static/{{student.profilePhoto}}' class='img-responsive'/> </p>
+                    {% else %}
+                    <p> <img src='/static/img/profilePhoto.png' class='img-responsive'/> </p>
+                    {% endif %}
+                    <p> <i class="fa fa-external-link" aria-hidden="true"></i>
+                        <a href="{% url "studentAttendance" pk=student.pk %}">Yoklama Bigileri</a>
+                    </p>
+
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-4">
+                  <p> <b>İsim</b> {{ student.firstName }} </p>
+                  <p> <b>Soyisim</b> {{ student.lastName }} </p>
+                  <p> <b>Telefon Numarası</b> {{ student.phoneNumber }} </p>
+                  <p> <b>Doğum Tarihi</b> {{ student.dateOfBirth }} </p>
+                  <p> <b>Email Adresi</b> {{ student.mailAddress }} </p>
+                  <p> <b>Adres</b> {{ student.adress }} </p>
+                  <p> <b>Kaldığı Yer</b> {{ student.residence }} </p>
+                  <p> <b>TEOG Skoru</b> {{ student.TEOGScore }} </p>
+                  <p> <b>Lise</b> {{ student.highSchool }} </p>
+                  <p> <b>Sınıf</b> {{ student.schoolLevel }} </p>
+                  <p> <b>Lisar Kademesi</b> {{ student.lisarLevel }} </p>
+                  <p> <b>Başvuru Nedeni</b> {{ student.admissionCause }} </p>
+                  <p> <b>Referanslar</b> {{ student.reference }} </p>
+
+                </div>
+                <div class="col-xs-3">
+                    <a href="edit/" class="custom-button cb-yellow" title="DÜZENLE">
+                        <span class="custom-button-wrap">
+                            <span class="custom-button-title">DÜZENLE</span>
+                            <span class="custom-button-tagline">Bilgileri değiştir</span>
+                        </span>
+                        <em></em>
+                    </a>
+                </div>
+              </div>
+          </div>
+        </div>
+</div>
+</div>
+
+{% endblock %}

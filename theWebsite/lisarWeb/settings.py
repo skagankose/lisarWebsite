@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'baseApp',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,6 +69,11 @@ TEMPLATES = [
         },
     },
 ]
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)
 
 WSGI_APPLICATION = 'lisarWeb.wsgi.application'
 
@@ -102,4 +108,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'precious/static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'baseApp/static/')

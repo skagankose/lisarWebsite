@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div id="k-body"><!-- content wrapper -->
+
+    <div class="container"><!-- container -->
+
+        <div class="row"><!-- row -->
+
+            <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
+
+                <form action="#" id="top-searchform" method="get" role="search">
+                    <div class="input-group">
+                        <input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
+                    </div>
+                </form>
+
+                <div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div><!-- toggle search button -->
+
+            </div><!-- top search end -->
+
+            <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
+
+                <ol class="breadcrumb">
+                    <li><a href="{% url "courses" %}">Bütün Dersler</a></li>
+                    <li class="active">Ders Bilgileri</li>
+                </ol>
+
+            </div><!-- breadcrumbs end -->
+
+        </div><!-- row end -->
+
+        <div class="row no-gutter"><!-- row -->
+
+            <div><!-- doc body wrapper -->
+
+                <div class="row">
+                  <div class="col-xs-4">
+                      <p> <img src='/static/img/coursePhoto.png' class='img-responsive'/> </p>
+                  </div>
+                  <div class="col-xs-1"></div>
+                  <div class="col-xs-4">
+                      <p> <b>Kod</b> {{ course.code }} </p>
+                      <p> <b>Ad</b> {{ course.name }} </p>
+                      <p> <b>Öğretmen</b> {{ course.teacher }} </p>
+                      <p> <b>Sınıf</b> {{ course.classroom }} </p>
+                      <p> <b>Seviye</b> {{ course.lisarLevel }} </p>
+                      <p> <b>Başlangıç</b> {{ course.start }} </p>
+                      <p> <b>Bitiş</b> {{ course.end }} </p>
+                  </div>
+                  <div class="col-xs-3">
+                      <a href="edit/" class="custom-button cb-yellow" title="DÜZENLE">
+                          <span class="custom-button-wrap">
+                              <span class="custom-button-title">DÜZENLE</span>
+                              <span class="custom-button-tagline">Bilgileri değiştir</span>
+                          </span>
+                          <em></em>
+                      </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
