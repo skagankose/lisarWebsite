@@ -457,3 +457,29 @@ def kitapodemesikaydi(request):
         form = KitapOdemesiKayit()
 
     return render(request, 'kayit.html', {'form': form, 'title': 'Kitap Ödemesi'})
+
+# Öğrenci Okul Kaydi
+def lisekaydi(request):
+    if request.method == 'POST':
+        form = AddHighSchool(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = AddHighSchool()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Lise'})
+
+# Öğretmen Okul Kaydi
+def unikaydi(request):
+    if request.method == 'POST':
+        form = AddUniversity(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = AddUniversity()
+
+    return render(request, 'kayit.html', {'form': form, 'title': 'Üniversite'})

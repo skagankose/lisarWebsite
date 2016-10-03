@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^gelirkaydi/$', views.gelirkaydi, name='gelirkaydi'),
     url(r'^giderkaydi/$', views.giderkaydi, name='giderkaydi'),
     url(r'^kitapodemesikaydi/$', views.kitapodemesikaydi, name='kitapodemesikaydi'),
+    url(r'^unikaydi/$', views.unikaydi, name='unikaydi'),
+    url(r'^lisekaydi/$', views.lisekaydi, name='lisekaydi'),
 
     # Attendace
     url(r'^createAttendance/$', views.createAttendance, name='createAttendance'),
