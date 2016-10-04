@@ -109,3 +109,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'baseApp/static/')
+
+# START OF Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = 'asd123dsa'
+EMAIL_HOST_USER = 'akademiLisar@gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# END OF Email Settings

@@ -2,14 +2,54 @@ from django.shortcuts import render,  get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.defaulttags import register
+from django.utils import timezone
+from django.core.mail import EmailMessage
 from .models import *
 from .forms import *
 
 # Homepage
 def home(request):
 
+    currentDate = CurrentDate.objects.all()[0]
+    currentYear = str(currentDate.date).split("-")[0]
+    newDate = timezone.now()
+    newYear = str(newDate).split("-")[0]
+    if currentYear != newYear:
+        currentDate.delete()
+        newCurrentDate = CurrentDate(date=timezone.now())
+        newCurrentDate.save()
+        allStudents = Student.objects.all()
+        for aStudent in allStudents:
+            if int(aStudent.schoolLevel) != 13:
+                aStudent.schoolLevel = int(aStudent.schoolLevel) + 1
+                aStudent.save()
+            if int(aStudent.lisarLevel) != 3:
+                aStudent.lisarLevel = int(aStudent.lisarLevel) + 1
+                aStudent.save()
+
     context = {}
     return render(request, 'home.html', context)
+
+
+def emailAndHome(request, pk):
+
+    course = get_object_or_404(CreateAttendance, pk=pk).course
+    for student in course.students.all():
+        attendances =  Attendance.objects.filter(student=student)
+        heres = Attendance.objects.filter(student=student, isHere=True)
+        absences = Attendance.objects.filter(student=student, isHere=False)
+        if float(len(absences))/float(len(attendances)) * 100.0 >= 25.0:
+
+            email = EmailMessage(
+                'Lisar Akademi Öğrenci Yoklama Bilgisi',
+                str(student.firstName) + " " + str(student.lastName) + " derslerin %25'ine gelmemiştir.",
+                'Lisar Akademi Bilgilendirme',
+                ['skagankose@gmail.com'],
+                headers = {'Reply-To': 'akademiLisar@gmail.com' }
+            )
+            email.send()
+
+    return HttpResponseRedirect('/')
 
 def studentDetails(request, pk):
 
@@ -282,7 +322,6 @@ def markAttendance(request, capk, spk):
     return HttpResponse(status=204)
 
 def studentAttendance(request, pk):
-
     student = get_object_or_404(Student, pk=pk)
     attendances =  Attendance.objects.filter(student=student)
     heres = Attendance.objects.filter(student=student, isHere=True)

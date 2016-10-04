@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.home, name='home'),
+    url(r'^emailAndHome/(?P<pk>[0-9]+)/$', views.emailAndHome, name='emailAndHome'),
 
     # Students
     url(r'^students/$', views.students, name='students'),
