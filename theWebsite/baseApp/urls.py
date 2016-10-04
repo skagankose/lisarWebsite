@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.home, name='home'),
+    url(r'^emailAndHome/(?P<pk>[0-9]+)/$', views.emailAndHome, name='emailAndHome'),
 
     # Students
     url(r'^students/$', views.students, name='students'),
@@ -31,6 +32,8 @@ urlpatterns = [
     url(r'^gelirkaydi/$', views.gelirkaydi, name='gelirkaydi'),
     url(r'^giderkaydi/$', views.giderkaydi, name='giderkaydi'),
     url(r'^kitapodemesikaydi/$', views.kitapodemesikaydi, name='kitapodemesikaydi'),
+    url(r'^unikaydi/$', views.unikaydi, name='unikaydi'),
+    url(r'^lisekaydi/$', views.lisekaydi, name='lisekaydi'),
 
     # Attendace
     url(r'^createAttendance/$', views.createAttendance, name='createAttendance'),

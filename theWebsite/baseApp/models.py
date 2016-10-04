@@ -5,7 +5,11 @@ from django.db import models
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 
+class CurrentDate(models.Model):
+    date = models.DateField(default=timezone.now)
 
+    def __str__(self):
+        return str(self.pk) + "-" + str(self.date)
 
 class HighSchool(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
@@ -123,11 +127,11 @@ class Student(models.Model):
     TEOGScore = models.FloatField(blank=True, null=True, verbose_name="TEOG Skoru")
 
     highSchool = models.ForeignKey(HighSchool, related_name="students", blank=True, null=True, verbose_name="Lise")
-    schoolLevel = models.CharField(max_length=10, choices=(('9.', '9.'), ('10.', '10.'), ('11.', '11.'), ('12.', '12.')),\
-        blank=True, null=True, verbose_name="Sınıf")
+    schoolLevel = models.CharField(max_length=10, choices=(('9', '9'), ('10', '10'), ('11', '11'),\
+        ('12', '12'), ('13', 'Mezun')), default="9", verbose_name="Sınıf")
 
-    lisarLevel = models.CharField(max_length=10, choices=(('1.', '1.'), ('2.', '2.')),\
-        blank=True, null=True, verbose_name="Lisar Kademesi")
+    lisarLevel = models.CharField(max_length=10, choices=(('1', '1'), ('2', '2'), ('3', 'Mezun')),\
+        default="1", verbose_name="Lisar Kademesi")
 
     profilePhoto = models.ImageField(upload_to='img/', blank=True, verbose_name="Fotoğraf")
 
@@ -192,7 +196,7 @@ class Attendance(models.Model):
         return str(self.course) + " - " + str(self.date) + " - " + self.student.firstName
 
 # START OF individualAttendance
-
+# START OF Not Neccesseary for Now
 class CourseGrade(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True)
     course = models.ForeignKey(Course, blank=True, null=True)
@@ -223,3 +227,4 @@ class Budget(models.Model):
 
     def __str__(self):
         return self.totalAmount + " TL"
+# END OF Not Neccesseary for Now

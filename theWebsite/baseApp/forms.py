@@ -5,6 +5,22 @@ from django import forms
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+class AddHighSchool(ModelForm):
+    class Meta:
+        model = HighSchool
+        fields = ['name', 'schoolType']
+
+class AddHighSchool(ModelForm):
+    class Meta:
+        model = HighSchool
+        fields = ['name', 'schoolType']
+
+class AddUniversity(ModelForm):
+    class Meta:
+        model = School
+        fields = ['name', 'schoolType']
+
+
 # Create the form class.
 class OgrenciKayit(ModelForm):
   class Meta:
@@ -16,19 +32,12 @@ class OgrenciKayit(ModelForm):
     widgets = {
         'dateOfBirth': DateInput(),
     }
-    help_texts = {
-        'highSchool': '<a href="/ogrenciokulekle/">Okul eklemek için tıklayınız</a>'
-    }
 
 class OgretmenKayit(ModelForm):
   class Meta:
     model = Teacher
     fields = ['firstName', 'lastName', 'phoneNumber', 'school', 'department',
     'status', 'mailAddress', 'IBAN', 'profilePhoto']
-
-    help_texts = {
-        'school': '<a href="/ogretmenokulekle/">Okul eklemek için tıklayınız</a>'
-    }
 
 class DersKayit(ModelForm):
   class Meta:

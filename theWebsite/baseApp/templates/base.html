@@ -38,6 +38,11 @@
               <ul class="list-inline pull-right">
                   <li><a href="#" class="transform">Başvuru</a></li>
                   <li><a href="#" class="transform">Site Haritası</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a href="/admin" class="transform"><b>{{ user }}</b></a></li>
+                  {% else %}
+                    <li><a href="/admin" class="transform">Admin Girişi</a></li>
+                  {% endif %}
               </ul>
 
           </nav><!-- functional navig end -->
@@ -63,12 +68,14 @@
                           <a href="{% url "teachers" %}" title="Teachers" class="transform">Öğretmenler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogretmenkaydi" %}"  class="transform">Öğretmen Ekle</a></li>
+                              <li><a href="{% url "unikaydi" %}" class="transform">Üniversite Ekle</a></li>
                           </ul>
                       </li>
                       <li>
                           <a href="{% url "students" %}" title="Students" class="transform">Öğrenciler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogrencikaydi" %}" class="transform">Öğrenci Ekle</a></li>
+                              <li><a href="{% url "lisekaydi" %}" class="transform">Lise Ekle</a></li>
                           </ul>
                       </li>
                       <li>
@@ -84,7 +91,6 @@
                               <li><a href="{% url "gelirkaydi" %}" class="transform">Gelir Ekle</a></li>
                               <li><a href="{% url "giderkaydi" %}" class="transform">Gider Ekle</a></li>
                               <li><a href="{% url "kitapodemesikaydi" %}" style="text-transform:none;">Kitap Ödemesi Ekle</a></li>
-                              <li><a href="#" style="text-transform:none;">Öğrenci Ödemesi</a></li>
                           </ul>
                       </li>
                       <li>
