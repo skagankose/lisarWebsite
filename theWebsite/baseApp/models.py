@@ -116,6 +116,7 @@ class Student(models.Model):
         message="Phone number must be entered in the format: '+999999999'. 12 digits allowed.")
     phoneNumber = models.CharField(validators=[phoneRegex], blank=True, max_length=13, verbose_name="Telefon")
     dateOfBirth = models.DateField(max_length=8, default=timezone.now, verbose_name="Doğum Tarihi")
+    parentMailAddress = models.EmailField(default="2beordinary@gmail.com", verbose_name="Veli Email Adresi")
     mailAddress = models.EmailField(verbose_name="Email Adresi")
 
     adress = models.CharField(max_length=500, blank=True, null=True, verbose_name="Adres")
@@ -191,6 +192,7 @@ class Attendance(models.Model):
     course = models.ForeignKey(Course, blank=True, null=True, related_name="attendance")
     date = models.DateField(max_length=8, default=timezone.now)
     isHere = models.BooleanField(default=False)
+    isCancelled = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.course) + " - " + str(self.date) + " - " + self.student.firstName

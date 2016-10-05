@@ -24,7 +24,7 @@
 
             <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 
-                <ol class="breadcrumb">
+                <ol class="breadcrumb transform">
                     <li><a href="{% url "studentDetails" pk=student.pk %}">Öğrenci Bilgileri</a></li>
                     <li class="active">Yoklama Bilgileri</li>
                 </ol>
@@ -55,7 +55,7 @@
 
                             <p> <b>Toplam {{ attendancesC }}</b> dersten,
                                 <b>{{ heresC }}</b> derse <b>gelmiş</b>,
-                                <b>{{ absencesC }}</b> derse <b>gelmemiş</b>.
+                                <b>{{ absencesC }}</b> derse <b>gelmemiş</b>, <b>{{ cancelledsC }}</b> dersi <b>iptal</b> olmuştur.
                             </p>
 
 

@@ -10,16 +10,10 @@ class AddHighSchool(ModelForm):
         model = HighSchool
         fields = ['name', 'schoolType']
 
-class AddHighSchool(ModelForm):
-    class Meta:
-        model = HighSchool
-        fields = ['name', 'schoolType']
-
 class AddUniversity(ModelForm):
     class Meta:
         model = School
         fields = ['name', 'schoolType']
-
 
 # Create the form class.
 class OgrenciKayit(ModelForm):
@@ -59,6 +53,7 @@ class CreateAttendanceForm(ModelForm):
     model = CreateAttendance
     fields = ['date', 'course']
 
+# Unused
 class GelirKayit(ModelForm):
   class Meta:
     model = Income

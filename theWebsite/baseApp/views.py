@@ -4,10 +4,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.defaulttags import register
 from django.utils import timezone
 from django.core.mail import EmailMessage
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 
 # Homepage
+@login_required
 def home(request):
 
     currentDate = CurrentDate.objects.all()[0]
@@ -31,33 +34,62 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/login/')
+
+# TMP AboutUs
+def aboutUs(request):
+    return HttpResponseRedirect('/')
+
+@login_required
 def emailAndHome(request, pk):
 
     course = get_object_or_404(CreateAttendance, pk=pk).course
+    studentsToSent = list()
     for student in course.students.all():
         attendances =  Attendance.objects.filter(student=student)
         heres = Attendance.objects.filter(student=student, isHere=True)
         absences = Attendance.objects.filter(student=student, isHere=False)
-        if float(len(absences))/float(len(attendances)) * 100.0 >= 25.0:
+        cancelleds = Attendance.objects.filter(student=student, isCancelled=True)
+        percentage =  int(float(len(absences)-len(cancelleds))/float(len(attendances)) * 100.0)
+        if percentage >= 25.0:
+
+            studentsToSent += [str(student.firstName) + " " + str(student.lastName) + "\t%" + str(percentage)]
 
             email = EmailMessage(
                 'Lisar Akademi Öğrenci Yoklama Bilgisi',
-                str(student.firstName) + " " + str(student.lastName) + " derslerin %25'ine gelmemiştir.",
+                str(student.firstName) + " " + str(student.lastName) + " %" + str(percentage) +" oranında devamsızlık yapmıştır.",
                 'Lisar Akademi Bilgilendirme',
-                ['skagankose@gmail.com'],
+                [str(student.parentMailAddress)],
                 headers = {'Reply-To': 'akademiLisar@gmail.com' }
             )
             email.send()
 
+    if len(studentsToSent) > 1:
+
+        message = "Öğrenci İsmi\tDevamsızlık Yüzdesi\n"
+        for s in studentsToSent:
+            message += s + "\n"
+        email = EmailMessage(
+            'Lisar Akademi Öğrenci Yoklama Bilgisi',
+            message,
+            'Lisar Akademi Bilgilendirme',
+            ['akademiLisar@gmail.com'],
+            headers = {'Reply-To': 'akademiLisar@gmail.com' }
+        )
+        email.send()
+
     return HttpResponseRedirect('/')
 
+@login_required
 def studentDetails(request, pk):
 
     student = get_object_or_404(Student, pk=pk)
     context = {'student': student}
 
     return render(request,'studentDetails.html', context)
-
+@login_required
 def students(request):
 
     if request.method == 'POST':
@@ -98,6 +130,7 @@ def students(request):
 
         return render(request,'students.html', context)
 
+@login_required
 def teachers(request):
 
         if request.method == 'POST':
@@ -138,6 +171,7 @@ def teachers(request):
             context = {'teachers': teachers}
 
             return render(request,'teachers.html', context)
+@login_required
 def teacherDetails(request, pk):
 
     teacher = get_object_or_404(Teacher, pk=pk)
@@ -145,6 +179,7 @@ def teacherDetails(request, pk):
 
     return render(request,'teacherDetails.html', context)
 
+@login_required
 def courses(request):
 
     if request.method == 'POST':
@@ -155,7 +190,7 @@ def courses(request):
 
 
         courseList = Course.objects.filter(name__contains=name,\
-                                           teacher__slugName__contains=teacher,\
+                                           teacher__fullName__contains=teacher,\
                                            code__contains=code)
         paginator = Paginator(courseList, 15)
         page = request.GET.get('page')
@@ -189,6 +224,7 @@ def courses(request):
         context = {'courses': courses}
 
         return render(request,'courses.html', context)
+@login_required
 def courseDetails(request, pk):
 
     course = get_object_or_404(Course, pk=pk)
@@ -196,6 +232,7 @@ def courseDetails(request, pk):
 
     return render(request,'courseDetails.html', context)
 
+@login_required
 def attendances(request):
 
     if request.method == 'POST':
@@ -236,10 +273,15 @@ def attendances(request):
         context = {'attendances': attendances}
 
         return render(request,'attendances.html', context)
+@login_required
 def attendanceDetails(request, pk):
 
     createAttendance = get_object_or_404(CreateAttendance, pk=pk)
     attendance = Attendance.objects.filter(course=createAttendance.course, date=createAttendance.date)
+    if attendance[0].isCancelled == True:
+        statusText = "Ders İptal Edildi."
+    else:
+        statusText = "Yoklama Sorunsuz Alındı."
     attendanceList = attendance
     paginator = Paginator(attendanceList, 15)
     page = request.GET.get('page')
@@ -251,10 +293,10 @@ def attendanceDetails(request, pk):
     except EmptyPage:
         attendances = paginator.page(paginator.num_pages)
 
-    context = {'createAttendance': createAttendance, 'attendances': attendances}
+    context = {'createAttendance': createAttendance, 'attendances': attendances, 'statusText': statusText}
 
     return render(request,'attendanceDetails.html', context)
-
+@login_required
 def createAttendance(request):
     if request.method == 'POST':
         form = CreateAttendanceForm(request.POST)
@@ -289,7 +331,7 @@ def createAttendance(request):
         form = CreateAttendanceForm()
 
     return render(request, 'kayit.html', {'form': form, 'title': 'Yoklama'})
-
+@login_required
 def attendance(request, pk):
     createAttendance = get_object_or_404(CreateAttendance, pk=pk)
     studentList = createAttendance.course.students.all()
@@ -306,7 +348,7 @@ def attendance(request, pk):
     context = {'students': students, 'createAttendance': createAttendance}
 
     return render(request,'attendance.html', context)
-
+@login_required
 def markAttendance(request, capk, spk):
     student = get_object_or_404(Student, pk=spk)
     createAttendance = get_object_or_404(CreateAttendance, pk=capk)
@@ -320,26 +362,37 @@ def markAttendance(request, capk, spk):
         attendance.isHere = False
     attendance.save()
     return HttpResponse(status=204)
-
+@login_required
+def cancelAttendance(request, pk):
+    createAttendance = get_object_or_404(CreateAttendance, pk=pk)
+    attendances = Attendance.objects.filter(course=createAttendance.course, date=createAttendance.date)
+    for attendance in attendances:
+        attendance.isCancelled = True
+        attendance.save()
+    return HttpResponseRedirect('/')
+@login_required
 def studentAttendance(request, pk):
     student = get_object_or_404(Student, pk=pk)
     attendances =  Attendance.objects.filter(student=student)
     heres = Attendance.objects.filter(student=student, isHere=True)
     absences = Attendance.objects.filter(student=student, isHere=False)
+    cancelleds = Attendance.objects.filter(student=student, isCancelled=True)
     context = {'student': student, 'attendances': attendances,\
-               'heresC': len(heres), 'absencesC': len(absences), 'attendancesC': len(attendances)}
+               'heresC': len(heres), 'absencesC': len(absences)-len(cancelleds), 'attendancesC': len(attendances),
+               'cancelledsC': len(cancelleds)}
 
     return render(request,'studentAttendance.html', context)
-
+@login_required
 def attendanceTaken(request):
 
-    text = "Yoklama Önceden Alındı!"
+    text = "Bu dersin yoklamasi bu tarih için önceden alındı."
     context = {'text': text}
 
     return render(request,'404.html', context)
 
 
 # Student Edit Page
+@login_required
 def studentDetailsEdit(request, pk):
     student = get_object_or_404(Student, pk=pk)
     if request.POST:
@@ -353,6 +406,7 @@ def studentDetailsEdit(request, pk):
     return render(request, 'kayit.html',{ 'form':form, 'title':'Öğrenci'})
 
 # Teacher Edit Page
+@login_required
 def teacherDetailsEdit(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
     if request.POST:
@@ -366,6 +420,7 @@ def teacherDetailsEdit(request, pk):
     return render(request, 'kayit.html',{ 'form':form, 'title':'Öğretmen'})
 
 # Course Edit Page
+@login_required
 def courseDetailsEdit(request, pk):
     course = get_object_or_404(Course, pk=pk)
     if request.POST:
@@ -380,6 +435,7 @@ def courseDetailsEdit(request, pk):
 
 
 # Ogrenci Kaydi
+@login_required
 def ogrencikaydi(request):
     if request.method == 'POST':
         form = OgrenciKayit(request.POST, request.FILES)
@@ -388,7 +444,8 @@ def ogrencikaydi(request):
             instance.profilePhoto = request.FILES.get('profilePhoto', None)
             instance.save()
             registered = True
-            return HttpResponseRedirect('/')
+            pk = int(instance.pk)
+            return HttpResponseRedirect('/studentDetails/'+str(pk))
 
     else:
         form = OgrenciKayit()
@@ -396,6 +453,7 @@ def ogrencikaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Öğrenci'})
 
 # Ogretmen Kaydi
+@login_required
 def ogretmenkaydi(request):
     if request.method == 'POST':
         form = OgretmenKayit(request.POST, request.FILES)
@@ -413,6 +471,7 @@ def ogretmenkaydi(request):
 
 
 # Ders Kaydi
+@login_required
 def derskaydi(request):
     if request.method == 'POST':
         form = DersKayit(request.POST)
@@ -427,6 +486,7 @@ def derskaydi(request):
 
 
 # Dönem Kaydi
+@login_required
 def donemkaydi(request):
     if request.method == 'POST':
         form = DonemKayit(request.POST)
@@ -442,6 +502,7 @@ def donemkaydi(request):
 
 
 # Sınıf Kaydi
+@login_required
 def sinifkaydi(request):
     if request.method == 'POST':
         form = SinifKayit(request.POST)
@@ -456,6 +517,7 @@ def sinifkaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Sınıf'})
 
 # Gelir Kaydi
+@login_required
 def gelirkaydi(request):
     if request.method == 'POST':
         form = GelirKayit(request.POST)
@@ -470,6 +532,7 @@ def gelirkaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Gelir'})
 
 # Gider Kaydi
+@login_required
 def giderkaydi(request):
     if request.method == 'POST':
         form = GiderKayit(request.POST)
@@ -484,6 +547,7 @@ def giderkaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Gider'})
 
 # Kitap Odemesi Kaydi
+@login_required
 def kitapodemesikaydi(request):
     if request.method == 'POST':
         form = KitapOdemesiKayit(request.POST)
@@ -498,6 +562,7 @@ def kitapodemesikaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Kitap Ödemesi'})
 
 # Öğrenci Okul Kaydi
+@login_required
 def lisekaydi(request):
     if request.method == 'POST':
         form = AddHighSchool(request.POST)
@@ -511,6 +576,7 @@ def lisekaydi(request):
     return render(request, 'kayit.html', {'form': form, 'title': 'Lise'})
 
 # Öğretmen Okul Kaydi
+@login_required
 def unikaydi(request):
     if request.method == 'POST':
         form = AddUniversity(request.POST)

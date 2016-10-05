@@ -4,7 +4,13 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.home, name='home'),
+    url(r'^aboutUs/$', views.aboutUs, name='aboutUs'),
     url(r'^emailAndHome/(?P<pk>[0-9]+)/$', views.emailAndHome, name='emailAndHome'),
+
+    # Login
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html',},  name='login'),
+    url(r'^logout/$', views.user_logout, name='logout'),
+
 
     # Students
     url(r'^students/$', views.students, name='students'),
@@ -38,6 +44,7 @@ urlpatterns = [
     # Attendace
     url(r'^createAttendance/$', views.createAttendance, name='createAttendance'),
     url(r'^attendance/(?P<pk>[0-9]+)/$', views.attendance, name='attendance'),
+    url(r'^cancelAttendance/(?P<pk>[0-9]+)/$', views.cancelAttendance, name='cancelAttendance'),
     url(r'^markAttendance/(?P<capk>[0-9]+)/(?P<spk>[0-9]+)/$', views.markAttendance, name='markAttendance'),
     url(r'^studentAttendance/(?P<pk>[0-9]+)/$', views.studentAttendance, name='studentAttendance'),
     url(r'^attendanceTaken/$', views.attendanceTaken, name='attendanceTaken'),

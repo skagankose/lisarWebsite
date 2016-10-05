@@ -27,7 +27,7 @@
 
             <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 
-                <ol class="breadcrumb">
+                <ol class="breadcrumb transform">
                     <li><a href="{% url "attendances" %}">Bütün Yoklamlar</a></li>
                     <li class="active">Yoklama Bilgileri</li>
                 </ol>
@@ -47,7 +47,8 @@
                         <div class="col-lg-12 col-md-12">
 
                             <h1 class="page-title">{{ createAttendance.course }} - {{ createAttendance.date }}</h1><!-- category title -->
-
+                            <br/>
+                            <p>{{ statusText }}</p>
                         </div>
 
                     </div><!-- row end -->

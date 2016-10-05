@@ -2,6 +2,10 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block style %}
+.transform { text-transform: none !important;}
+{% endblock %}
+
 {% block body %}
 
     <div id="k-body"><!-- content wrapper -->
@@ -24,8 +28,8 @@
 
             	<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 
-                	<ol class="breadcrumb">
-                    	<li><a href="index-2.html">Home</a></li>
+                	<ol class="breadcrumb transform">
+                    	<li><a href="{% url "home" %}">Anasayfa</a></li>
                         <li class="active">404 Error</li>
                     </ol>
 
@@ -39,7 +43,7 @@
 
                     <div class="col-padded"><!-- inner custom column -->
 
-                        <h1 class="page-title text-center">404 Error</h1>
+                        <h1 class="page-title text-center">Hata Oluştu</h1>
 
                         <div class="news-body">
 
@@ -52,11 +56,11 @@
                                 </div>
 
                                 <div class="col-lg-12">
-                                	<h6 class="text-center">{{ text }}</h6>
-                                	<p class="text-center">
+                                	<p class="text-center" class="transform">{{ text }}</p>
+                                	<!-- <p class="text-center">
                                 	What an embarrassing situation, requested page can not be found or it doesn't exist.<br />
 
-                                	</p>
+                                	</p> -->
                                 </div>
 
                             </div><!-- row end -->
