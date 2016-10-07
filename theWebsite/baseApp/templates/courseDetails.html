@@ -26,25 +26,24 @@
 
         </div><!-- row end -->
 
-        <div class="row gutter"><!-- row -->
+        <div class="row gutter col-padded"><!-- row -->
 
             <div class="col-lg-12 col-md-12">
 
                 <div class="row">
-                  <div class="col-xs-4" style="padding:10px">
-                      <p> <img src='/static/img/coursePhoto.png' class='img-responsive'/> </p>
+                  <div class="col-xs-5" style="padding:10px">
+                      <p> <b> <h1 style="font-size:100px; color:#1aa8ba;"> {{ course.code }} </h1></b></p><br>
                       <p class="transform" style="font-size:13px"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                           <a href="edit/">Düzenle</a>
                       </p>
                   </div>
-                  <div class="col-xs-8 transform">
-                      <p> <b>Kod</b> {{ course.code }} </p>
-                      <p> <b>Ad</b> {{ course.name }} </p>
-                      <p> <b>Öğretmen</b> {{ course.teacher }} </p>
-                      <p> <b>Sınıf</b> {{ course.classroom }} </p>
-                      <p> <b>Seviye</b> {{ course.lisarLevel }} </p>
-                      <p> <b>Başlangıç</b> {{ course.start }} </p>
-                      <p> <b>Bitiş</b> {{ course.end }} </p>
+                  <div class="col-xs-5 transform">
+                      <p> <b>Ad: </b> {{ course.name }} </p>
+                      <p> <b>Öğretmen: </b> {{ course.teacher }} </p>
+                      <p> <b>Sınıf: </b> {{ course.classroom }} </p>
+                      <p> <b>Seviye: </b> {{ course.lisarLevel }} </p>
+                      <p> <b>Başlangıç Saati: </b> {{ course.start }} </p>
+                      <p> <b>Bitiş Saati: </b> {{ course.end }} </p>
                   </div>
 
                 </div>

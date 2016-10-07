@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html',},  name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
 
+    # Classroom
+    url(r'^classrooms/$', views.classrooms, name='classrooms'),
+    url(r'^classroomDetails/(?P<pk>[0-9]+)/$', views.classroomDetails, name='classroomDetails'),
 
     # Students
     url(r'^students/$', views.students, name='students'),
@@ -28,12 +31,12 @@ urlpatterns = [
     url(r'^studentDetails/(?P<pk>[0-9]+)/edit/$', views.studentDetailsEdit, name='studentDetailsEdit'),
     url(r'^teacherDetails/(?P<pk>[0-9]+)/edit/$', views.teacherDetailsEdit, name='teacherDetailsEdit'),
     url(r'^courseDetails/(?P<pk>[0-9]+)/edit/$', views.courseDetailsEdit, name='courseDetailsEdit'),
+    url(r'^classroomDetails/(?P<pk>[0-9]+)/edit/$', views.classroomDetailsEdit, name='classroomDetailsEdit'),
 
     # Registrations
     url(r'^ogrencikaydi/$', views.ogrencikaydi, name='ogrencikaydi'),
     url(r'^ogretmenkaydi/$', views.ogretmenkaydi, name='ogretmenkaydi'),
     url(r'^derskaydi/$', views.derskaydi, name='derskaydi'),
-    url(r'^donemkaydi/$', views.donemkaydi, name='donemkaydi'),
     url(r'^sinifkaydi/$', views.sinifkaydi, name='sinifkaydi'),
     url(r'^gelirkaydi/$', views.gelirkaydi, name='gelirkaydi'),
     url(r'^giderkaydi/$', views.giderkaydi, name='giderkaydi'),

@@ -61,16 +61,25 @@
               <nav id="k-menu" class="k-main-navig"><!-- main navig -->
 
                   <ul id="drop-down-left" class="k-dropdown-menu">
+                    <li>
+                        <a href="{% url "classrooms" %}" title="Classrooms" class="transform">Sınıflar</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url "sinifkaydi" %}" class="transform">Sınıf Ekle</a></li>
+                        </ul>
+                    </li>
+
                       <li>
                           <a href="{% url "teachers" %}" title="Teachers" class="transform">Öğretmenler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogretmenkaydi" %}"  class="transform">Öğretmen Ekle</a></li>
+                              <li><a href="{% url "unikaydi" %}" class="transform">Üniversite Ekle</a></li>
                           </ul>
                       </li>
                       <li>
                           <a href="{% url "students" %}" title="Students" class="transform">Öğrenciler</a>
                           <ul class="sub-menu">
                               <li><a href="{% url "ogrencikaydi" %}" class="transform">Öğrenci Ekle</a></li>
+                              <li><a href="{% url "lisekaydi" %}" class="transform">Lise Ekle</a></li>
                           </ul>
                       </li>
                       <li>
@@ -95,15 +104,15 @@
                               <li><a href="{% url "createAttendance" %}" class="transform">Yoklama Ekle</a></li>
                           </ul>
                       </li>
+                      <!--
                       <li>
-                          <a href="#" title="Other" class="transform disabled">Diğer</a>
+                          <a href="#" title="Other" class="transform disabled">Ödemeler</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url "unikaydi" %}" class="transform">Üniversite Ekle</a></li>
+                              <li><a href="{% url "unikaydi" %}" class="transform">Kitap Ödemesi Oluştur</a></li>
                               <li><a href="{% url "lisekaydi" %}" class="transform">Lise Ekle</a></li>
-                              <li><a href="{% url "sinifkaydi" %}" class="transform">Sınıf Ekle</a></li>
 
                           </ul>
-                      </li>
+                      </li> -->
 
                   </ul>
 

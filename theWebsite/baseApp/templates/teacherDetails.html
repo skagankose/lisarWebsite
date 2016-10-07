@@ -27,7 +27,7 @@
         </div><!-- row end -->
 
 
-            <div class="row gutter"><!-- row -->
+            <div class="row gutter col-padded"><!-- row -->
 
                 <div class="col-lg-12 col-md-12">
 
@@ -42,15 +42,16 @@
                         <a href="edit/">Bilgileri Düzenle</a>
                     </p>
                 </div>
-                <div class="col-xs-8 transform" style="padding:7px">
-                  <p> <b>İsim</b> {{ teacher.firstName }} </p>
-                  <p> <b>Soyisim</b> {{ teacher.lastName }} </p>
-                  <p> <b>Telefon Numarası</b> {{ teacher.phoneNumber }} </p>
-                  <p> <b>Email Adresi</b> {{ teacher.mailAddress }} </p>
-                  <p> <b>Okul</b> {{ teacher.school }} </p>
-                  <p> <b>Bölüm</b> {{ teacher.department }} </p>
-                  <p> <b>Statü</b> {{ teacher.status }} </p>
-                  <p> <b>IBAN</b> {{ teacher.IBAN }} </p>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-7 transform" style="padding:7px">
+                  <p> <b>İsim: </b> {{ teacher.firstName }} </p>
+                  <p> <b>Soyisim: </b> {{ teacher.lastName }} </p>
+                  <p> <b>Telefon Numarası: </b> {{ teacher.phoneNumber }} </p>
+                  <p> <b>Email Adresi: </b> {{ teacher.mailAddress }} </p>
+                  <p> <b>Okul: </b> {{ teacher.school }} </p>
+                  <p> <b>Bölüm: </b> {{ teacher.department }} </p>
+                  <p> <b>Statü: </b> {{ teacher.status }} </p>
+                  <p> <b>IBAN: </b> {{ teacher.IBAN }} </p>
                 </div>
 
                 </div>
