@@ -10,23 +10,17 @@ class AddHighSchool(ModelForm):
         model = HighSchool
         fields = ['name', 'schoolType']
 
-class AddHighSchool(ModelForm):
-    class Meta:
-        model = HighSchool
-        fields = ['name', 'schoolType']
-
 class AddUniversity(ModelForm):
     class Meta:
         model = School
         fields = ['name', 'schoolType']
-
 
 # Create the form class.
 class OgrenciKayit(ModelForm):
   class Meta:
     model = Student
     fields = ['firstName', 'lastName', 'dateOfBirth', 'phoneNumber',
-    'mailAddress', 'adress', 'residence', 'reference', 'admissionCause',
+    'mailAddress', 'parentMailAddress', 'adress', 'residence', 'reference', 'admissionCause',
     'highSchool', 'schoolLevel', 'TEOGScore',
     'lisarLevel','profilePhoto']
     widgets = {
@@ -42,23 +36,24 @@ class OgretmenKayit(ModelForm):
 class DersKayit(ModelForm):
   class Meta:
     model = Course
-    fields = ['name', 'code', 'teacher', 'classroom', 'lisarLevel', 'start', 'end', 'students']
+    fields = ['name', 'code', 'teacher', 'classroom', 'lisarLevel', 'start', 'end']
 
-class DonemKayit(ModelForm):
-  class Meta:
-    model = LisarSemester
-    fields = ['semester', 'start', 'end']
+
 
 class SinifKayit(ModelForm):
   class Meta:
     model = Classroom
-    fields = ['code', 'location']
+    fields = ['code', 'location', 'students']
 
 class CreateAttendanceForm(ModelForm):
   class Meta:
     model = CreateAttendance
     fields = ['date', 'course']
+    widgets = {
+            'date': DateInput(),
+        }
 
+# Unused
 class GelirKayit(ModelForm):
   class Meta:
     model = Income

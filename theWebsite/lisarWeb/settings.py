@@ -118,3 +118,6 @@ EMAIL_HOST_USER = 'akademiLisar@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # END OF Email Settings
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
