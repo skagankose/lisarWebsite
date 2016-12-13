@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify
 
 class CurrentDate(models.Model):
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=timezone.now,null=Ture)
 
     def __str__(self):
         return str(self.pk) + "-" + str(self.date)
