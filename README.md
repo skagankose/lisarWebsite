@@ -1,9 +1,7 @@
-# lisarWebsite
-Website for managing study related issues of highschool student at Lisar Academia which is located at Istanbul, Turkey-
+# Lisar Website
+Website for managing education related works for highschool students at Lisar Academia which is located at Istanbul, Turkey.
 
-requirments: python 3, django 1.8
-
-index:
+Index:
   docs - Informations about the website; 
   sampleWebsite - Sample template to use on the website;
   theWebsite - Django directory of the project; 
